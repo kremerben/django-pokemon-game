@@ -88,7 +88,7 @@ $('#pokeSingle').on('click', function() {
 var specialTeam = [];
 $(document).on('click', '#specialTeamButton', function() {
 
-    console.log('Hello');
+//    console.log('Hello');
     $('.pokemon').find('.pokeChar').appendTo('.specialTeam');
     $('#specialTeamButton').remove();
     var current_pokemon = teamPokemon.pop();
@@ -109,6 +109,20 @@ $(document).on('click', '#specialTeamButton', function() {
             console.log(response + ' error ');
         }
     });
+
+    if ($('.pokeChar').length === MATCHGAMECARDS) {
+        var playThisTeam2 = document.createElement('button');
+        playThisTeam2.id = 'playThisTeamButton2';
+        $(playThisTeam2).text("Play the Match Game with this Team");
+        $('#box').append(playThisTeam2);
+    }
+    if ($('.specialTeam .pokeChar').length === 1) {
+        var clearTeam = document.createElement('button');
+        clearTeam.id = 'clearTeam';
+        $(clearTeam).text("Delete Special Team");
+        $('.specialTeam h2').append(clearTeam);
+    }
+
 });
 
 
@@ -185,7 +199,7 @@ $(document).on('click', '#playThisTeamButton2', function() {
 
     MATCHGAMECARDS = specialTeam.length/2;
     $.each(specialTeam, function(index, num) {
-        singlePokemon(num.id+1, 'inactive');
+        singlePokemon(num.pokedex_id+1, 'inactive');
     });
 //    specialTeam = $.unique(specialTeam);
 });
@@ -211,16 +225,26 @@ var singlePokemon = function(pokemonNumber, addclass) {
                 pokemon.name = data.pokemon.name;
                 pokemon.pokedex_id = data.id - 1;
                 pokemon.image = 'http://pokeapi.co' + data.image;
-                var pokeDiv = document.createElement("div");
-                pokeDiv.id = pokemon.pokedex_id;
-                pokeDiv.innerHTML = '<h3>' + pokemon.name + ' - ' + pokemon.pokedex_id + '</3>';
-                $(pokeDiv).addClass('pokeChar').addClass(addclass);
-                $('.pokemon').append(pokeDiv);
-                $(pokeDiv).append('<img src="' + pokemon.image + '" />');
+//                var pokeDiv = document.createElement("div");
+//                pokeDiv.id = pokemon.pokedex_id;
+//                pokeDiv.innerHTML = '<h3>' + pokemon.name + ' - ' + pokemon.pokedex_id + '</3>';
+//                $(pokeDiv).addClass('pokeChar').addClass(addclass);
+//                $('.pokemon').append(pokeDiv);
+//                $(pokeDiv).append('<img src="' + pokemon.image + '" />');
+                $.ajax({
+                    url: '/pokemon_info/' + pokemon.pokedex_id + '/',
+                    type: 'GET',
+                    success: function(data) {
+                        $('.pokemon').html(data);
+                    }
+                });
+
+
+
 //                console.log(pokemon);
 //                console.log(pokemon.id);
                 teamPokemon.push(pokemon);
-                animatethis($('#'+pokeDiv.id+' img'), 2000);
+                animatethis($('#'+pokemon.pokedex_id+' img'), 2000);
 
 //    console.log(teamPokemon.length);
 //    console.log(teamPokemon);
