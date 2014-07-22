@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Profile - {{ user.first_name|title }}{% endblock %}
+{% block content %}
+    <div class="col-md-6">
+    <h1>{{ user.first_name|title }} {{ user.last_name|title }}</h1>
+ <!--<p>Hi {{ user.first_name|title }} {{ user.last_name|title }}, you were last here {{ user.last_login }}</p>-->
+    <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+    <p>Joined: {{ user.date_joined|timesince }} ago</p>
+    <p>{{ user.address1 }}</p>
+    {% if user.address2 %}
+        <p>{{ user.address2 }}</p>
+    {% endif %}
+
+
+
+
+    </div>
+<div class="clearfix"></div>
+
+
+
+
+{% endblock content %}

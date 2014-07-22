@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+    {% load staticfiles %}
+
+
+{% block content %}
+    <div id="overlay">
+        <h1>Winner! Winner!</h1>
+        <img src="{% static 'img/win.gif' %}" />
+        <span></span>
+    </div>
+<div id="box">
+    <button type="button" id="pokeSingle">A Wild Pokemon appeared!</button>
+    <button type="button" id="pokeTeam">Make a Pokemon Team!</button>
+    <button type="button" id="matchGame">Catch Them All!</button>
+
+    <div class="pokemon"></div>
+</div>
+<div id="box2">
+    <div class="specialTeam"><h2>Special Team</h2></div>
+</div>
+
+{% endblock %}
+<hr>
+{#<ul>#}
+{#<li><a href="/accounts/register/">Register</a></li>#}
+{#<li><a href="/accounts/login/">login</a></li>#}
+{#</ul>#}
+{% block sidebar %}
+{% endblock %}
