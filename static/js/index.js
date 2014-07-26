@@ -3,6 +3,19 @@ $(document).ready(function() {
 var MATCHGAMECARDS = 6;
 var score = 0;
 
+//GET TEAM
+$('#getMyTeam').on('click', function(){
+    var team_id = $("#teamDrop :selected").val();
+    console.log(team_id);
+    $.ajax({
+        url: '/pokemon_team_info/' + team_id + '/',
+        type: 'GET',
+        success: function(data) {
+            $('.pokemon').append(data);
+        }
+    });
+});
+
 
 // MATCH GAME SETUP
 $('#matchGame').on('click', function() {
@@ -81,7 +94,6 @@ $('#pokeSingle').on('click', function() {
     specialTeamButton.id = 'specialTeamButton';
     $(specialTeamButton).text("Save to special Team");
     $('.pokemon').append(specialTeamButton);
-
 });
 
 // SAVE TO SPECIAL TEAM
@@ -225,19 +237,21 @@ var singlePokemon = function(pokemonNumber, addclass) {
                 pokemon.name = data.pokemon.name;
                 pokemon.pokedex_id = data.id - 1;
                 pokemon.image = 'http://pokeapi.co' + data.image;
-//                var pokeDiv = document.createElement("div");
-//                pokeDiv.id = pokemon.pokedex_id;
-//                pokeDiv.innerHTML = '<h3>' + pokemon.name + ' - ' + pokemon.pokedex_id + '</3>';
-//                $(pokeDiv).addClass('pokeChar').addClass(addclass);
-//                $('.pokemon').append(pokeDiv);
-//                $(pokeDiv).append('<img src="' + pokemon.image + '" />');
-                $.ajax({
-                    url: '/pokemon_info/' + pokemon.pokedex_id + '/',
-                    type: 'GET',
-                    success: function(data) {
-                        $('.pokemon').html(data);
-                    }
-                });
+                var pokeDiv = document.createElement("div");
+                pokeDiv.id = pokemon.pokedex_id;
+                pokeDiv.innerHTML = '<h3>' + pokemon.name + ' - ' + pokemon.pokedex_id + '</3>';
+                $(pokeDiv).addClass('pokeChar').addClass(addclass);
+                $('.pokemon').append(pokeDiv);
+                $(pokeDiv).append('<img src="' + pokemon.image + '" />');
+
+
+//                $.ajax({
+//                    url: '/pokemon_info/' + pokemon.pokedex_id + '/',
+//                    type: 'GET',
+//                    success: function(data) {
+//                        $('.pokemon').html(data);
+//                    }
+//                });
 
 
 

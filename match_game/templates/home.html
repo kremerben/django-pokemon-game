@@ -12,6 +12,17 @@
     <button type="button" id="pokeSingle">A Wild Pokemon appeared!</button>
     <button type="button" id="pokeTeam">Make a Pokemon Team!</button>
     <button type="button" id="matchGame">Catch Them All!</button>
+<select id="teamDrop">
+    {% for team in teams %}
+    <option value={{ team.id }} >{{ team.name }}</option>
+    {% endfor %}
+</select>
+    <button type="button" id="getMyTeam">Get My Team!</button>
+{#<form method="post" class="getMyTeam" >#}
+{#    {% csrf_token %}#}
+{#    {{ form }}#}
+{#    <button type="submit" value="Get My Team" id="getMyTeam">Get My Team</button>#}
+{#</form>#}
 
     <div class="pokemon"></div>
 </div>

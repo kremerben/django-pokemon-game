@@ -15,5 +15,8 @@ urlpatterns = patterns('',
     url(r'^dump_pokemon/$', 'match_game.views.all_pokemon', name='all_pokemon'),
     url(r'^serial_pokemon/$', 'match_game.views.serial_pokemon', name='serial_pokemon'),
     url(r'^pokemon_info/(?P<pokemon_id>\w+)/$', 'match_game.views.pokemon_info', name='pokemon_info'),
+    url(r'^pokemon_team_info/(?P<team_id>\w+)/$', 'match_game.views.pokemon_team_info', name='pokemon_team_info'),
+
+
 
 )

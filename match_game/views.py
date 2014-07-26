@@ -1,13 +1,27 @@
 import json
 from django.core import serializers
 from django.http import HttpResponse
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, redirect
 from django.views.decorators.csrf import csrf_exempt
 from models import *
+from forms import *
 # Create your views here.
 
 def home(request):
-    return render(request, "home.html")
+    # if request.method == "POST":
+    #     form = GetTeamForm(request.POST)
+    #     if form.is_valid():
+    #         this_team = form.cleaned_data['team']
+    #         team = Pokemon.objects.filter(team=this_team)
+    #         return render_to_response('pokemon_team_info.html', team)
+    # else:
+    #     form = GetTeamForm()
+    # data = {'form': form}
+
+    data = {
+        'teams': Team.objects.all(),
+    }
+    return render(request, "home.html", data)
 
 
 # initial basic version
@@ -92,3 +106,19 @@ def pokemon_info(request, pokemon_id):
         }
     }
     return render_to_response('pokemon_info.html', this_pokemon)
+
+def pokemon_team_info(request, team_id):
+    pokemon_in_team = Pokemon.objects.filter(team_id=team_id)
+    # this_pokemon = {
+    #     'name': pokemon.name,
+    #     'image': pokemon.image,
+    #     'pokedex_id': pokemon.pokedex_id,
+    #     'team': {
+    #         'id': pokemon.team.id,
+    #         'name': pokemon.team.name
+    #     }
+    # }
+    data = {
+        'pokemon_in_team': pokemon_in_team,
+    }
+    return render_to_response('pokemon_team_info.html', data)
