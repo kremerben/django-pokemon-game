@@ -1,0 +1,8 @@
+
+{#{{ pokemon_in_team }}#}
+{% for poke in pokemon_in_team %}
+<div id="{{ poke.pokedex_id }}" class="pokeChar">
+    <h3>{{ poke.name }} - {{ poke.pokedex_id }}</h3>
+    <img src="{{ poke.image }}">
+</div>
+{% endfor %}
